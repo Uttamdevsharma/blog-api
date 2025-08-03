@@ -30,8 +30,42 @@ let blogs = [
 ];
 
 
+//get method use
+//get all blogs
 router.get("/" , (req,res) => {
     res.send(blogs)
+})
+
+//get a single blog by id
+router.get("/:id" , (req,res) => {
+    const {id} = req.params;
+    const existingBlog = blogs.find((blog) => blog.id === parseInt(id))
+   
+    if(existingBlog){
+        res.status(200).json(existingBlog)
+        
+    }else {
+        res.status(404).json({message: "No blog found"})
+       
+    }
+
+    
+})
+
+
+
+
+//post method use
+
+//add a new blog
+router.post("/add-post" ,(req,res) => {
+    const data = req.body;
+    const newBlog = blogs.push(data);
+    res.status(200).json({
+        message : "New blog added successfully",
+        newBlog
+        
+    })
 })
 
 
