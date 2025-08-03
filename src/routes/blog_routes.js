@@ -56,14 +56,16 @@ router.get("/:id" , (req,res) => {
 
 
 //post method use
-
 //add a new blog
 router.post("/add-post" ,(req,res) => {
-    const data = req.body;
-    const newBlog = blogs.push(data);
+    const {title,description} = req.body;
+
+    const newBlog = {id : blogs.length+1 , title,description}
+    blogs.push(newBlog);
+    
     res.status(200).json({
         message : "New blog added successfully",
-        newBlog
+        blog : newBlog
         
     })
 })
