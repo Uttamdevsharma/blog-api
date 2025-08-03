@@ -35,7 +35,6 @@ let blogs = [
 router.get("/" , (req,res) => {
     res.send(blogs)
 })
-
 //get a single blog by id
 router.get("/:id" , (req,res) => {
     const {id} = req.params;
@@ -68,6 +67,29 @@ router.post("/add-post" ,(req,res) => {
         blog : newBlog
         
     })
+})
+
+
+
+
+//put method - for update
+
+router.put("/update-post/:id" , (req,res) => {
+    const {id} = req.params;
+    const {title,description} = req.body;
+
+    const blog = blogs.find((blog) => blog.id === parseInt(id));
+    if(!blog) return res.status(404).json({message : "Blog Not Found"})
+
+        blog.title = title || blog.title; 
+        blog.description =  description || blog.description;
+        res.status(200).json({
+            message : "Blog updated successfully",
+            blog
+        })
+    
+
+
 })
 
 
